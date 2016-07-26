@@ -105,7 +105,7 @@ abstract val lemma_index_app2: #a:Type -> s1:seq a -> s2:seq a -> i:nat{i < leng
   (requires True)
   (ensures (index (append s1 s2) i == index s2 (i - length s1)))
   [SMTPat (index (append s1 s2) i)]
-let lemma_index_app2 #a s2 s2 i  = ()
+let lemma_index_app2 #a s1 s2 i  = ()
 
 abstract val lemma_index_slice: #a:Type -> s:seq a -> i:nat -> j:nat{i <= j /\ j <= length s} -> k:nat{k < j - i} -> Lemma
   (requires True)

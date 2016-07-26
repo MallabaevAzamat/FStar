@@ -323,7 +323,7 @@ let rec doc_of_expr (currentModule : mlsymbol) (outer : level) (e : mlexpr) : do
     | MLE_Coerce (e, t, t') ->
       let doc = doc_of_expr currentModule (min_op_prec, NonAssoc) e in
       if Util.codegen_fsharp()
-      then parens (reduce [text "Prims.checked_cast"; doc])
+      then parens (reduce [text "Prims.checked_cast "; doc])
       else parens (reduce [text "Obj.magic "; parens doc])
 
     | MLE_Seq es ->
@@ -606,13 +606,13 @@ and doc_of_loc (lineno, file) =
 
 (* -------------------------------------------------------------------- *)
 let doc_of_mltydecl (currentModule : mlsymbol) (decls : mltydecl) =
-    let for1 (x, tparams, body) =
+    let for1 (x, tparams', body) =
         let tparams =
-            match tparams with
+            match tparams' with
             | []  -> empty
             | [x] -> text (idsym x)
             | _   ->
-                let doc = List.map (fun x -> (text (idsym x))) tparams in
+                let doc = List.map (fun x -> (text (idsym x))) tparams' in
                 parens (combine (text ", ") doc) in
 
         let forbody (body : mltybody) =
@@ -648,14 +648,19 @@ let doc_of_mltydecl (currentModule : mlsymbol) (decls : mltydecl) =
         let doc = reduce1 [tparams; text (ptsym currentModule  ([], x))] in
 
         match body with
-        | None      -> doc
-        | Some body ->
-            let body = forbody body in
-            combine hardline [reduce1 [doc; text "="]; body]
+        | None      -> [doc]
+        | Some body' ->
+            let body = forbody body' in
+            match body' with
+            | MLTD_Abbrev ty ->
+                if UEnv.tySchemeIsFinal (tparams', ty) then
+                    [(combine hardline [reduce1 [doc; text "="]; body])]
+                else []
+            | _ -> [(combine hardline [reduce1 [doc; text "="]; body])]
 
     in
 
-    let doc = List.map for1 decls in
+    let doc = List.flatten (List.map for1 decls) in
     let doc = if (List.length doc >0) then reduce1 [text "type"; combine (text " \n and ") doc] else text "" in
     doc
 

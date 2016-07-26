@@ -189,6 +189,10 @@ let rec subsetMlidents (la : list<mlident>) (lb : list<mlident>)  : bool =
 let tySchemeIsClosed (tys : mltyscheme) : bool =
     subsetMlidents  (mltyFvars (snd tys)) (fst tys)
 
+let tySchemeIsFinal ((ids, t) : mltyscheme) : bool =
+    let vars = mltyFvars t in
+    not (List.exists (fun id -> not (List.contains id vars)) ids)
+
 let extend_fv' (g:env) (x:fv) (y:mlpath) (t_x:mltyscheme) (add_unit:bool) (is_rec:bool) : env =
     if tySchemeIsClosed t_x
     then
