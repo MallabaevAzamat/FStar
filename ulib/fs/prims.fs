@@ -13,7 +13,7 @@ module Prims
   type double    = Microsoft.FSharp.Core.double
   type float     = Microsoft.FSharp.Core.float
   type int       = Microsoft.FSharp.Core.bigint
-  type byte 	 = Microsoft.FSharp.Core.byte
+  type byte      = Microsoft.FSharp.Core.byte
   type exn       = Microsoft.FSharp.Core.exn
   type 'a list'  = 'a list
   type 'a list   = 'a list'
@@ -105,4 +105,4 @@ module Prims
   let is_Cons l = not (is_Nil l)
   let raise e = raise e
   let string_of_bool b = sprintf "%b" b
-  let string_of_int i = sprintf "%d" i
+  let string_of_int (i:int) = sprintf "%A" i
