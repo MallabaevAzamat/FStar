@@ -2,9 +2,7 @@ module TestSeq
 open FStar
 open FStar.IO
 
-type int' = Microsoft.FSharp.Core.bigint
-
-val print_seq : i:int' -> s:Seq.seq int' {i <= Seq.length s} -> unit
+val print_seq : i:nat -> s:Seq.seq int {i <= Seq.length s} -> unit
 let rec print_seq i s =
   if i = Seq.length s then ()
   else (print_string (string_of_int (Seq.index s i));

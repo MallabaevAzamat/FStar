@@ -1,20 +1,17 @@
 #light "off"
 module FStar.Seq
 open Prims
-
-type int' = Microsoft.FSharp.Core.bigint
-
 type 'Aa seq =
-| MkSeq of int' * (int'  ->  'Aa)
+| MkSeq of Prims.nat * (Prims.nat  ->  'Aa)
 
 
-let ___MkSeq___length = (fun ( projectee  :  'Aa seq ) -> (match (((*Prims.checked_cast*) projectee)) with
+let ___MkSeq___length = (fun ( projectee  :  'Aa seq ) -> (match ((projectee)) with
 | MkSeq (length, contents) -> begin
 length
 end))
 
 
-let ___MkSeq___contents: 'Aa seq -> (int' -> 'Aa) = (fun ( projectee  :  'Aa seq ) -> (match (((*Prims.checked_cast*) projectee)) with
+let ___MkSeq___contents = (fun ( projectee  :  'Aa seq ) -> (match ((projectee)) with
 | MkSeq (length, contents) -> begin
 contents
 end))
@@ -23,19 +20,19 @@ end))
 let length = (fun ( s  :  'Aa seq ) -> (___MkSeq___length s))
 
 
-let index = (fun ( s  :  'Aa seq ) ( i  :  int' ) -> ((___MkSeq___contents s) i))
+let index = (fun ( s  :  'Aa seq ) ( i  :  Prims.nat ) -> ((___MkSeq___contents s) i))
 
 
-let create = (fun ( len  :  int' ) ( v  :  'Aa ) -> MkSeq (len, (fun ( i  :  int' ) -> v)))
+let create = (fun ( len  :  Prims.nat ) ( v  :  'Aa ) -> MkSeq (len, (fun ( i  :  Prims.nat ) -> v)))
 
 
-//let exFalso0: int -> 'a = ((*Prims.checked_cast*)(fun ( n  :  int' ) -> new a()))
+let exFalso0 = ((fun ( n  :  Prims.nat ) -> ()))
 
 
-//let createEmpty = (fun ( uu____129  :  Prims.unit ) -> MkSeq ((Prims.parse_int "0"), (fun ( i  :  int' ) -> (exFalso0 i))))
+let createEmpty = (fun ( uu____129  :  Prims.unit ) -> MkSeq ((Prims.parse_int "0"), (fun ( i  :  Prims.nat ) -> (exFalso0 i))))
 
 
-let upd = (fun ( s  :  'Aa seq ) ( n  :  int' ) ( v  :  'Aa ) -> MkSeq ((length s), (fun ( i  :  int' ) -> (match ((i = n)) with
+let upd = (fun ( s  :  'Aa seq ) ( n  :  Prims.nat ) ( v  :  'Aa ) -> MkSeq ((length s), (fun ( i  :  Prims.nat ) -> (match ((i = n)) with
 | true -> begin
 v
 end
@@ -44,7 +41,7 @@ end
 end))))
 
 
-let append = (fun ( s1  :  'Aa seq ) ( s2  :  'Aa seq ) -> MkSeq (((length s1) + (length s2)), (fun ( x  :  int' ) -> (match ((x < (length s1))) with
+let append = (fun ( s1  :  'Aa seq ) ( s2  :  'Aa seq ) -> MkSeq (((length s1) + (length s2)), (fun ( x  :  Prims.nat ) -> (match ((x < (length s1))) with
 | true -> begin
 (index s1 x)
 end
@@ -56,44 +53,43 @@ end))))
 let op_At_Bar = (fun ( s1  :  'Aa seq ) ( s2  :  'Aa seq ) -> (append s1 s2))
 
 
-let slice = (fun ( s  :  'Aa seq ) ( i  :  int' ) ( j  :  int' ) -> MkSeq ((j - i), (fun ( x  :  int' ) -> (index s (x + i)))))
+let slice = (fun ( s  :  'Aa seq ) ( i  :  Prims.nat ) ( j  :  Prims.nat ) -> MkSeq ((j - i), (fun ( x  :  Prims.nat ) -> (index s (x + i)))))
 
 
-let lemma_create_len = (fun ( n  :  int' ) ( i  :  'Aa ) -> ())
+let lemma_create_len = (fun ( n  :  Prims.nat ) ( i  :  'Aa ) -> ())
 
 
-let lemma_len_upd = (fun ( n  :  int' ) ( v  :  'Aa ) ( s  :  'Aa seq ) -> ())
+let lemma_len_upd = (fun ( n  :  Prims.nat ) ( v  :  'Aa ) ( s  :  'Aa seq ) -> ())
 
 
 let lemma_len_append = (fun ( s1  :  'Aa seq ) ( s2  :  'Aa seq ) -> ())
 
 
-let lemma_len_slice = (fun ( s  :  'Aa seq ) ( i  :  int' ) ( j  :  int' ) -> ())
+let lemma_len_slice = (fun ( s  :  'Aa seq ) ( i  :  Prims.nat ) ( j  :  Prims.nat ) -> ())
 
 
-let lemma_index_create = (fun ( n  :  int' ) ( v  :  'Aa ) ( i  :  int' ) -> ())
+let lemma_index_create = (fun ( n  :  Prims.nat ) ( v  :  'Aa ) ( i  :  Prims.nat ) -> ())
 
 
-let lemma_index_upd1 = (fun ( n  :  'Aa seq ) ( v  :  int' ) ( s  :  'Aa ) -> ())
+let lemma_index_upd1 = (fun ( n  :  'Aa seq ) ( v  :  Prims.nat ) ( s  :  'Aa ) -> ())
 
 
-let lemma_index_upd2 = (fun ( n  :  'Aa seq ) ( v  :  int' ) ( s  :  'Aa ) ( i  :  int' ) -> ())
+let lemma_index_upd2 = (fun ( n  :  'Aa seq ) ( v  :  Prims.nat ) ( s  :  'Aa ) ( i  :  Prims.nat ) -> ())
 
 
-let lemma_index_app1 = (fun ( s1  :  'Aa seq ) ( s2  :  'Aa seq ) ( i  :  int' ) -> ())
+let lemma_index_app1 = (fun ( s1  :  'Aa seq ) ( s2  :  'Aa seq ) ( i  :  Prims.nat ) -> ())
 
 
-let lemma_index_app2 = (fun ( s1  :  'Aa seq ) ( s2  :  'Aa seq ) ( i  :  int' ) -> ())
+let lemma_index_app2 = (fun ( s1  :  'Aa seq ) ( s2  :  'Aa seq ) ( i  :  Prims.nat ) -> ())
 
 
-let lemma_index_slice = (fun ( s  :  'Aa seq ) ( i  :  int' ) ( j  :  int' ) ( k  :  int' ) -> ())
+let lemma_index_slice = (fun ( s  :  'Aa seq ) ( i  :  Prims.nat ) ( j  :  Prims.nat ) ( k  :  Prims.nat ) -> ())
 
 
-//type ('Aa, 'As1, 'As2) equal =
-//Prims.unit
 
 
-let rec eq_i = (fun ( s1  :  'Aa seq ) ( s2  :  'Aa seq ) ( i  :  int' ) -> (match ((i = (length s1))) with
+
+let rec eq_i = (fun ( s1  :  'Aa seq ) ( s2  :  'Aa seq ) ( i  :  Prims.nat ) -> (match ((i = (length s1))) with
 | true -> begin
 true
 end
