@@ -126,7 +126,7 @@ let lemma_index_create n v i  = ()
 let lemma_index_upd1 n v s    = ()
 let lemma_index_upd2 n v s i  = ()
 let lemma_index_app1 s1 s2 i  = ()
-let lemma_index_app2 s2 s2 i  = ()
+let lemma_index_app2 s1 s2 i  = ()
 let lemma_index_slice s i j k = ()
 
 //type Eq: #a:Type -> seq a -> seq a -> Type
