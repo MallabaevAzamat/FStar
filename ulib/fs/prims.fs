@@ -3,7 +3,7 @@ module Prims
   let down (x:obj) : 'b =
       x :?> 'b
   let lift (x:'a) : obj = x :> obj
-  let checked_cast (x:'a) : 'b = lift x |> down
+  let checked_cast (x:'a) : 'a = x//lift x |> down
   type Tot<'a> = 'a
   type unit      = Microsoft.FSharp.Core.unit
   type bool      = Microsoft.FSharp.Core.bool
