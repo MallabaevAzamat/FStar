@@ -32,11 +32,11 @@ let index #a s i = MkSeq.contents s i
 abstract val create: #a:Type -> nat -> a -> Tot (seq a)
 let create #a len v =  MkSeq len (fun i -> v)
 
-private val exFalso0 : a:Type -> n:nat{n<0} -> Tot a
-let exFalso0 a n = ()
+//private val exFalso0 : a:Type -> n:nat{n<0} -> Tot a
+//let exFalso0 a n = ()
 
-abstract val createEmpty: #a:Type -> Tot (s:(seq a){length s=0})
-let createEmpty #a = MkSeq 0 (fun i -> (exFalso0 a i))
+//abstract val createEmpty: #a:Type -> Tot (s:(seq a){length s=0})
+//let createEmpty #a = MkSeq 0 (fun i -> (exFalso0 a i))
 
 abstract val upd:    #a:Type -> s:seq a -> n:nat{n < length s} -> a ->  Tot (seq a)
 let upd #a s n v =
